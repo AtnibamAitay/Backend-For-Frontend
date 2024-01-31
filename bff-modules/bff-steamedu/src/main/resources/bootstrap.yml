@@ -1,0 +1,33 @@
+server:
+  port: 6010
+
+spring:
+  profiles:
+    active: dev
+  application:
+    name: bff-steamedu
+  main:
+    banner-mode: "off"
+  mvc:
+    pathmatch:
+      matching-strategy: ant_path_matcher
+
+  cloud:
+    nacos:
+      server-addr: nacos.bff-dev.com:8848
+      discovery:
+        namespace: a03cf927-99ae-47f0-9ed2-f94e97761b03
+      config:
+        # 配置中心地址
+        server-addr: nacos.bff-dev.com:8848
+        # 配置文件格式
+        file-extension: yml
+        extension-configs:
+          - dataId: bff-steamedu-application-dev.yml
+            group: DEFAULT_GROUP
+        # 共享配置
+        shared-configs:
+          - dataId: bff-share-application-dev.yml
+            group: DEFAULT_GROUP
+        # 命名空间
+        namespace: a03cf927-99ae-47f0-9ed2-f94e97761b03

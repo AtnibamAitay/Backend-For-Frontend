@@ -1,0 +1,3 @@
+space.atnibam.common.swagger.config.SwaggerAutoConfiguration
+space.atnibam.common.swagger.config.SwaggerBeanPostProcessor
+space.atnibam.common.swagger.config.SwaggerWebConfiguration

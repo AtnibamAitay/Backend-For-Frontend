@@ -1,0 +1,31 @@
+server:
+  port: 6000
+
+spring:
+  application:
+    name: bff-gateway
+  profiles:
+    active: dev
+  main:
+    banner-mode: "off"
+    web-application-type: reactive
+
+  cloud:
+    nacos:
+      server-addr: nacos.bff-dev.com:8848
+      discovery:
+        namespace: a03cf927-99ae-47f0-9ed2-f94e97761b03
+      config:
+        # 配置中心地址
+        server-addr: nacos.bff-dev.com:8848
+        # 配置文件格式
+        file-extension: yml
+        extension-configs:
+          - dataId: bff-gateway-application-dev.yml
+            group: DEFAULT_GROUP
+        # 共享配置
+        shared-configs:
+          - dataId: bff-share-application-dev.yml
+            group: DEFAULT_GROUP
+        # 命名空间
+        namespace: a03cf927-99ae-47f0-9ed2-f94e97761b03
