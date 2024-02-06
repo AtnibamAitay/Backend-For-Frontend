@@ -1,8 +1,8 @@
 package space.atnibam.steamedu.service.impl;
 
-import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import space.atnibam.api.cms.RemoteCommentService;
+import space.atnibam.common.core.domain.R;
 import space.atnibam.steamedu.service.CommentService;
 
 import javax.annotation.Resource;
@@ -27,7 +27,7 @@ public class CommentServiceImpl implements CommentService {
      * @return JSON字符串
      */
     @Override
-    public String getCommentsByObjectId(Integer productId, Integer pageNum, Integer pageSize) {
-        return remoteCommentService.getCommentsByObjectId(productId, pageNum, pageSize).toString();
+    public R getCommentsByObjectId(Integer productId, Integer pageNum, Integer pageSize) {
+        return remoteCommentService.getCommentsByObjectId(productId, pageNum, pageSize);
     }
 }

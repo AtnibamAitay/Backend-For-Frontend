@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import space.atnibam.steamedu.api.RemoteSpuService;
+import space.atnibam.common.core.domain.R;
 import space.atnibam.steamedu.service.CommentService;
 
 import javax.annotation.Resource;
@@ -20,7 +20,7 @@ import javax.annotation.Resource;
 @Api(tags = "课程接口")
 @RestController
 @RequestMapping("/api/spu")
-public class SpuController implements RemoteSpuService {
+public class SpuController {
     @Resource
     private CommentService commentService;
 
@@ -30,10 +30,9 @@ public class SpuController implements RemoteSpuService {
      * @param spuId 商品ID
      * @return 评论
      */
-    @Override
     @ApiOperation("根据商品ID获取评论")
     @GetMapping("/comments/{spuId}")
-    public String getCommentsBySpuId(@PathVariable("spuId") Integer spuId) {
+    public R getCommentsBySpuId(@PathVariable("spuId") Integer spuId) {
         return commentService.getCommentsByObjectId(spuId, 1, 10);
     }
 

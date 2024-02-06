@@ -1,5 +1,7 @@
 package space.atnibam.steamedu.service;
 
+import space.atnibam.common.core.domain.R;
+
 /**
  * @InterfaceName: CommentService
  * @Description: 评论服务
@@ -15,5 +17,5 @@ public interface CommentService {
      * @param pageSize  每页大小
      * @return JSON字符串
      */
-    String getCommentsByObjectId(Integer productId, Integer pageNum, Integer pageSize);
+    R getCommentsByObjectId(Integer productId, Integer pageNum, Integer pageSize);
 }
