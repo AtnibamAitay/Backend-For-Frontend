@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>验证码</title>
+    <style>
+        body {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+        }
+
+        .verify-code {
+            background-color: #0349A9;
+            color: white;
+            width: 120px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto;
+            border-radius: 20px;
+        }
+    </style>
+</head>
+<body>
+<div style="text-align:center">
+    <p><span th:text="${email}"></span>，你好！</p>
+    <p>【STEAM课程】已经处理了您的登录请求。</p>
+    <p>您的一次性登录验证码是：</p>
+    <div class="verify-code" style="text-align: center;">
+        <p><span th:text="${verifyCode}"></span></p>
+    </div>
+    <p>有效期为 <span th:text="${ttl}"></span> 分钟。</p>
+    <p>如果您没有发起此登录，请忽略此电子邮件。</p>
+    <p>BY STEAM课堂</p>
+</div>
+</body>
+</html>
