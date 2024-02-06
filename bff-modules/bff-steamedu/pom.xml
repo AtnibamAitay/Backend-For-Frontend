@@ -56,6 +56,10 @@
         </dependency>
         <dependency>
             <groupId>space.atnibam</groupId>
+            <artifactId>api-pms</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>space.atnibam</groupId>
             <artifactId>api-steamedu</artifactId>
         </dependency>
         <dependency>
