@@ -32,8 +32,8 @@ public class SpuController {
      */
     @ApiOperation("根据商品ID获取评论")
     @GetMapping("/comments")
-    public R getCommentsBySpuId(@RequestParam Integer spuId, @RequestParam Integer pageSize) {
-        return commentService.getCommentsByObjectId(spuId, 1, pageSize);
+    public R getCommentsBySpuId(@RequestParam Integer spuId) {
+        return commentService.getCommentsByObjectId(spuId);
     }
 
 }
