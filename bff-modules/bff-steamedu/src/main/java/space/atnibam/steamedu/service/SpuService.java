@@ -10,10 +10,10 @@ import space.atnibam.common.core.domain.R;
  **/
 public interface SpuService {
     /**
-     * 根据商品ID获取商品信息
+     * 根据课程ID获取商品信息
      *
-     * @param spuId 商品ID
-     * @return 商品信息
+     * @param courseId 课程ID
+     * @return 课程信息
      */
-    R getSpuDetail(Integer spuId);
+    R getCourseDetailByCourseId(Integer courseId);
 }

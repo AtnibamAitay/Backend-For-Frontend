@@ -2,12 +2,10 @@ package space.atnibam.steamedu.controller;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import space.atnibam.common.core.domain.R;
 import space.atnibam.steamedu.service.CommentService;
+import space.atnibam.steamedu.service.SpuService;
 
 import javax.annotation.Resource;
 
@@ -23,14 +21,28 @@ import javax.annotation.Resource;
 public class SpuController {
     @Resource
     private CommentService commentService;
+    @Resource
+    private SpuService spuService;
 
     /**
-     * 根据商品ID获取评论
+     * 根据课程ID获取课程详细信息（商品详情）
      *
-     * @param spuId 商品ID
+     * @param courseId 课程ID
+     * @return 课程信息响应实体R，包含CourseDetailDTO对象
+     */
+    @GetMapping("/{courseId}/detail")
+    @ApiOperation(value = "获取课程详细信息", notes = "根据传入的课程ID获取课程详细信息，返回封装后的商品详情数据")
+    public R getCourseDetail(@PathVariable("courseId") Integer courseId) {
+        return spuService.getCourseDetailByCourseId(courseId);
+    }
+
+    /**
+     * 根据课程的商品ID获取评论
+     *
+     * @param spuId 课程的商品ID
      * @return 评论
      */
-    @ApiOperation("根据商品ID获取评论")
+    @ApiOperation("根据课程的商品ID获取3条评论")
     @GetMapping("/comments")
     public R getCommentsBySpuId(@RequestParam Integer spuId) {
         return commentService.getCommentsByObjectId(spuId);
