@@ -1,6 +1,7 @@
 package space.atnibam.steamedu.model.dto;
 
 import io.swagger.annotations.ApiModelProperty;
+import lombok.Builder;
 import lombok.Data;
 
 import javax.validation.constraints.NotBlank;
@@ -13,6 +14,7 @@ import javax.validation.constraints.NotNull;
  * @CreateTime: 2024-02-06 17:27
  **/
 @Data
+@Builder
 public class LoginDTO {
     /**
      * 凭证 手机号登录凭证为手机号码，邮箱登录凭证为邮箱

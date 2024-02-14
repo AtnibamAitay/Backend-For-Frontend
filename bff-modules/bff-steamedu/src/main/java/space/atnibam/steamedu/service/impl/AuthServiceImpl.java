@@ -47,6 +47,7 @@ public class AuthServiceImpl implements AuthService {
         AccountVerificationDTO accountVerificationDTO = AccountVerificationDTO.builder()
                 .accountNumber(accountNumber)
                 .codeType(codeType)
+                // TODO:邮件标题需要根据验证码类型选用不同的标题
                 .title(EMAIL_TITLE)
                 .content(content)
                 .appId(projectConfig.getAppId())
