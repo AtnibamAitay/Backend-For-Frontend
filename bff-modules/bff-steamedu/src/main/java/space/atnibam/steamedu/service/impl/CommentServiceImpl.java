@@ -19,15 +19,15 @@ public class CommentServiceImpl implements CommentService {
     private RemoteCommentService remoteCommentService;
 
     /**
-     * 根据商品ID获取评论
+     * 根据商品ID获取商品评论（不含子评论）
      *
-     * @param productId 商品ID
-     * @param pageNum   页码
-     * @param pageSize  每页大小
+     * @param spuId    商品ID
+     * @param pageNum  页码
+     * @param pageSize 每页大小
      * @return JSON字符串
      */
     @Override
-    public R getCommentsByObjectId(Integer productId, Integer pageNum, Integer pageSize) {
-        return remoteCommentService.getCommentsByObjectId(productId, pageNum, pageSize);
+    public R getCommentsByObjectId(Integer spuId, Integer pageNum, Integer pageSize) {
+        return remoteCommentService.getTopLevelCommentsByObjectId(spuId, pageNum, pageSize, String.valueOf(2));
     }
 }

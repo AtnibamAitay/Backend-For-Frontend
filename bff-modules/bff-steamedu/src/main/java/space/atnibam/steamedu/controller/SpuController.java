@@ -3,8 +3,8 @@ package space.atnibam.steamedu.controller;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import space.atnibam.common.core.domain.R;
 import space.atnibam.steamedu.service.CommentService;
@@ -31,9 +31,9 @@ public class SpuController {
      * @return 评论
      */
     @ApiOperation("根据商品ID获取评论")
-    @GetMapping("/comments/{spuId}")
-    public R getCommentsBySpuId(@PathVariable("spuId") Integer spuId) {
-        return commentService.getCommentsByObjectId(spuId, 1, 10);
+    @GetMapping("/comments")
+    public R getCommentsBySpuId(@RequestParam Integer spuId, @RequestParam Integer pageSize) {
+        return commentService.getCommentsByObjectId(spuId, 1, pageSize);
     }
 
 }
