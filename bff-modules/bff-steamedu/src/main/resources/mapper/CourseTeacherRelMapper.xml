@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="space.atnibam.steamedu.mapper.CourseTeacherRelMapper">
+
+    <resultMap id="BaseResultMap" type="space.atnibam.steamedu.model.entity.CourseTeacherRel">
+        <id property="ctRelId" column="ct_rel_id" jdbcType="INTEGER"/>
+        <result property="courseId" column="course_id" jdbcType="INTEGER"/>
+        <result property="teacherUserId" column="teacher_user_id" jdbcType="INTEGER"/>
+        <result property="teacherRole" column="teacher_role" jdbcType="INTEGER"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        ct_rel_id,course_id,teacher_user_id,
+        teacher_role
+    </sql>
+</mapper>

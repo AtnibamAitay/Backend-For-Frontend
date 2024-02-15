@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="space.atnibam.steamedu.mapper.CourseMapper">
+
+    <resultMap id="BaseResultMap" type="space.atnibam.steamedu.model.entity.Course">
+        <id property="courseId" column="course_id" jdbcType="INTEGER"/>
+        <result property="spuId" column="spu_id" jdbcType="INTEGER"/>
+        <result property="location" column="location" jdbcType="VARCHAR"/>
+        <result property="longitude" column="longitude" jdbcType="DECIMAL"/>
+        <result property="latitude" column="latitude" jdbcType="DECIMAL"/>
+        <result property="startTime" column="start_time" jdbcType="TIMESTAMP"/>
+        <result property="classDuration" column="class_duration" jdbcType="INTEGER"/>
+        <result property="totalClasses" column="total_classes" jdbcType="INTEGER"/>
+        <result property="endTime" column="end_time" jdbcType="TIMESTAMP"/>
+        <result property="completionStatus" column="completion_status" jdbcType="TINYINT"/>
+        <result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>
+        <result property="status" column="status" jdbcType="TINYINT"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        course_id,spu_id,location,
+        longitude,latitude,start_time,
+        class_duration,total_classes,end_time,
+        completion_status,create_time,status
+    </sql>
+</mapper>

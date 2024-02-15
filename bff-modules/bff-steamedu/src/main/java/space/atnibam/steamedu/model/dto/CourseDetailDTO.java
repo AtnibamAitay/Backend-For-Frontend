@@ -23,7 +23,7 @@ public class CourseDetailDTO implements Serializable {
     /**
      * 课程id
      */
-    private Integer spuId;
+    private Integer courseId;
     /**
      * 封面列表
      */
@@ -63,7 +63,7 @@ public class CourseDetailDTO implements Serializable {
     /**
      * 教师列表
      */
-    private List<teacherDTO> teacher;
+    private List<TeacherDTO> teacher;
     /**
      * 机构信息
      */
@@ -110,7 +110,7 @@ public class CourseDetailDTO implements Serializable {
     @Data
     @AllArgsConstructor
     @NoArgsConstructor
-    public static class teacherDTO implements Serializable {
+    public static class TeacherDTO implements Serializable {
         private static final long serialVersionUID = 1L;
         /**
          * 头像
