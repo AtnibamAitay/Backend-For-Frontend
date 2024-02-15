@@ -66,6 +66,10 @@
             <groupId>space.atnibam</groupId>
             <artifactId>api-steamedu</artifactId>
         </dependency>
+        <dependency>
+            <groupId>space.atnibam</groupId>
+            <artifactId>api-ums</artifactId>
+        </dependency>
     </dependencies>
 
 </project>
