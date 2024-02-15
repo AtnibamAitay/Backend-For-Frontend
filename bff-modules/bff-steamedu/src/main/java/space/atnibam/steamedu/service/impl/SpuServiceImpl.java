@@ -3,6 +3,7 @@ package space.atnibam.steamedu.service.impl;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
+import space.atnibam.api.cms.RemoteCommentService;
 import space.atnibam.api.pms.RemoteSpuService;
 import space.atnibam.common.core.domain.R;
 import space.atnibam.steamedu.mapper.CourseMapper;
@@ -28,6 +29,8 @@ public class SpuServiceImpl implements SpuService {
     @Resource
     private RemoteSpuService remoteSpuService;
     @Resource
+    private RemoteCommentService remoteCommentService;
+    @Resource
     private CourseTeacherRelService courseTeacherRelService;
 
     /**
@@ -46,8 +49,8 @@ public class SpuServiceImpl implements SpuService {
 
         // 设置从Course对象中获取的信息
         BeanUtils.copyProperties(course, courseDetailDTO, "spuId");
-        // TODO: 暂时设置为1.0，等中台的评分统计接口实现了再实现这里
-        courseDetailDTO.setTotalComprehensiveScore(1.0);
+        // 获取综合评分
+        courseDetailDTO.setTotalComprehensiveScore((Double) remoteCommentService.getAverageGrade(course.getSpuId(), "2").getData());
 
         // 获取教师信息
         courseDetailDTO.setTeacher(courseTeacherRelService.getCourseTeacherInfoByCourseId(courseId));
