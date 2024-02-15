@@ -1,14 +1,17 @@
 package space.atnibam.steamedu.service.impl;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 import space.atnibam.api.pms.RemoteSpuService;
 import space.atnibam.common.core.domain.R;
+import space.atnibam.steamedu.mapper.CourseMapper;
 import space.atnibam.steamedu.model.dto.CourseDetailDTO;
+import space.atnibam.steamedu.model.entity.Course;
+import space.atnibam.steamedu.service.CourseTeacherRelService;
 import space.atnibam.steamedu.service.SpuService;
 
 import javax.annotation.Resource;
-import java.util.Map;
 
 /**
  * @ClassName: SpuServiceImpl
@@ -21,7 +24,11 @@ public class SpuServiceImpl implements SpuService {
     @Resource
     private ObjectMapper objectMapper;
     @Resource
+    private CourseMapper courseMapper;
+    @Resource
     private RemoteSpuService remoteSpuService;
+    @Resource
+    private CourseTeacherRelService courseTeacherRelService;
 
     /**
      * 根据课程ID获取商品信息
@@ -30,10 +37,21 @@ public class SpuServiceImpl implements SpuService {
      * @return 课程信息
      */
     @Override
-    public R getCourseDetailByCourseId(Integer courseId) {
-        Object spuDetail = remoteSpuService.getSpuDetail(courseId).getData();
-        Map<String, Object> spuDetailMap = (Map<String, Object>) spuDetail;
-        CourseDetailDTO courseDetailDTO = objectMapper.convertValue(spuDetailMap, CourseDetailDTO.class);
+    public R<CourseDetailDTO> getCourseDetailByCourseId(Integer courseId) {
+        Course course = courseMapper.selectCourseById(courseId);
+
+        // 同步调用远程服务并直接转换为CourseDetailDTO
+        Object spuDetail = remoteSpuService.getSpuDetail(course.getSpuId()).getData();
+        CourseDetailDTO courseDetailDTO = objectMapper.convertValue(spuDetail, CourseDetailDTO.class);
+
+        // 设置从Course对象中获取的信息
+        BeanUtils.copyProperties(course, courseDetailDTO, "spuId");
+        // TODO: 暂时设置为1.0，等中台的评分统计接口实现了再实现这里
+        courseDetailDTO.setTotalComprehensiveScore(1.0);
+
+        // 获取教师信息
+        courseDetailDTO.setTeacher(courseTeacherRelService.getCourseTeacherInfoByCourseId(courseId));
+
         return R.ok(courseDetailDTO);
     }
 }
