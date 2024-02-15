@@ -1,5 +1,6 @@
 package space.atnibam.steamedu.model.dto;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -43,6 +44,7 @@ public class CourseDetailDTO implements Serializable {
     /**
      * 课程开始时间
      */
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm", timezone = "GMT+8")
     private LocalDateTime startTime;
     /**
      * 课程名
