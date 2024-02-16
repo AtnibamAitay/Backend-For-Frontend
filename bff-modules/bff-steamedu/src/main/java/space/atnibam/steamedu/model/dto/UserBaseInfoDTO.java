@@ -8,7 +8,7 @@ import java.io.Serializable;
 
 /**
  * @ClassName: UserBaseInfoDTO
- * @Description: 教师的基本用户信息
+ * @Description: 基本的用户信息
  * @Author: AtnibamAitay
  * @CreateTime: 2024-2-16 20:58
  **/

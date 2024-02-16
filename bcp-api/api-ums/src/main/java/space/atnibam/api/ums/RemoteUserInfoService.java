@@ -15,6 +15,15 @@ import java.util.List;
 @FeignClient(value = "modules-ums", contextId = "userInfo", url = "http://local.atnibam.space:9030")
 public interface RemoteUserInfoService {
     /**
+     * 查询用户信息
+     *
+     * @param userId 用户ID
+     * @return 用户信息实体类
+     */
+    @GetMapping("/api/userInfo/full/{userId}")
+    R getUserInfo(@PathVariable(value = "userId") String userId);
+
+    /**
      * 根据用户id查出用户名、用户头像、用户简介
      *
      * @param userId 用户ID

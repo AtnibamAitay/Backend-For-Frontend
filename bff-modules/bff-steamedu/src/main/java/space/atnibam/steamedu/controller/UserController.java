@@ -3,12 +3,10 @@ package space.atnibam.steamedu.controller;
 import cn.dev33.satoken.util.SaResult;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import space.atnibam.common.core.domain.R;
 import space.atnibam.steamedu.service.AuthService;
+import space.atnibam.steamedu.service.UserService;
 
 import javax.annotation.Resource;
 import java.io.IOException;
@@ -25,6 +23,20 @@ import java.io.IOException;
 public class UserController {
     @Resource
     private AuthService authService;
+    @Resource
+    private UserService userService;
+
+    /**
+     * 获取用户信息
+     *
+     * @param userId 用户ID
+     * @return 用户信息
+     */
+    @ApiOperation("获取用户头像、用户名、用户所在区")
+    @GetMapping("/{userId}/info")
+    public R getUserInfo(@PathVariable("userId") String userId) {
+        return R.ok(userService.getUserInfo(userId));
+    }
 
     /**
      * 发送验证码API
@@ -49,8 +61,7 @@ public class UserController {
      */
     @ApiOperation("用户登录")
     @PostMapping("/auth/login")
-    public SaResult login(@RequestParam String accountNumber, @RequestParam String verifyCode,
-                          @RequestParam Integer loginMethod) throws IOException {
+    public SaResult login(@RequestParam String accountNumber, @RequestParam String verifyCode, @RequestParam Integer loginMethod) throws IOException {
         return authService.login(accountNumber, verifyCode, loginMethod);
     }
 }
