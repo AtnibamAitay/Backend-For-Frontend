@@ -25,6 +25,19 @@ public class SpuController {
     private SpuService spuService;
 
     /**
+     * 根据位置获取用户附近的课程列表
+     *
+     * @param lat 纬度
+     * @param lng 经度
+     * @return 课程列表
+     */
+    @ApiOperation(value = "获取用户附近的课程列表", notes = "根据传入的经纬度获取用户附近的课程列表")
+    @GetMapping("/nearby")
+    public R getNearbyCourseList(@RequestParam Double lat, @RequestParam Double lng) {
+        return R.ok(spuService.getNearbyCourseList(lat, lng));
+    }
+
+    /**
      * 根据课程ID获取课程详细信息（商品详情）
      *
      * @param courseId 课程ID

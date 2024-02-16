@@ -10,6 +10,7 @@
         <result property="location" column="location" jdbcType="VARCHAR"/>
         <result property="longitude" column="longitude" jdbcType="DECIMAL"/>
         <result property="latitude" column="latitude" jdbcType="DECIMAL"/>
+        <result property="courseType" column="course_type" jdbcType="TINYINT"/>
         <result property="startTime" column="start_time" jdbcType="TIMESTAMP"/>
         <result property="classDuration" column="class_duration" jdbcType="INTEGER"/>
         <result property="totalClasses" column="total_classes" jdbcType="INTEGER"/>
@@ -21,7 +22,7 @@
 
     <sql id="Base_Column_List">
         course_id,spu_id,location,
-        longitude,latitude,start_time,
+        longitude,latitude,course_type,start_time,
         class_duration,total_classes,end_time,
         completion_status,create_time,status
     </sql>

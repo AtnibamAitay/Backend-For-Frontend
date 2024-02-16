@@ -6,10 +6,12 @@ import org.springframework.stereotype.Service;
 import space.atnibam.api.ums.RemoteUserInfoService;
 import space.atnibam.steamedu.mapper.CourseTeacherRelMapper;
 import space.atnibam.steamedu.model.dto.CourseDetailDTO;
+import space.atnibam.steamedu.model.dto.TeacherDTO;
 import space.atnibam.steamedu.model.entity.CourseTeacherRel;
 import space.atnibam.steamedu.service.CourseTeacherRelService;
 
 import javax.annotation.Resource;
+import java.lang.reflect.Field;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -30,13 +32,13 @@ public class CourseTeacherRelServiceImpl extends ServiceImpl<CourseTeacherRelMap
     private RemoteUserInfoService remoteUserInfoService;
 
     /**
-     * 根据课程ID查询所有教师的信息
+     * 根据课程ID查询所有教师的信息（含职位）
      *
      * @param courseId 课程ID
      * @return 教师信息列表
      */
     @Override
-    public List<CourseDetailDTO.TeacherDTO> getCourseTeacherInfoByCourseId(Integer courseId) {
+    public List<CourseDetailDTO.TeacherDTO> getCourseDetailTeacherInfoByCourseId(Integer courseId) {
         // 查询指定课程ID的所有教师关系
         List<CourseTeacherRel> courseTeacherRels = courseTeacherRelMapper.selectCourseTeacherRelByCourseId(courseId);
 
@@ -44,7 +46,22 @@ public class CourseTeacherRelServiceImpl extends ServiceImpl<CourseTeacherRelMap
         Map<Integer, String> userIdToRoleMap = getTeacherRolesMapping(courseTeacherRels);
 
         // 提取并转换用户信息为TeacherDTO列表
-        return extractAndConvertTeachersInfo(userIdsFromRels(courseTeacherRels), userIdToRoleMap);
+        return extractAndConvertCourseDetailDTOTeachersInfo(userIdsFromRels(courseTeacherRels), userIdToRoleMap);
+    }
+
+    /**
+     * 根据课程ID查询所有教师的信息（不含职位）
+     *
+     * @param courseId 课程ID
+     * @return 教师信息列表
+     */
+    @Override
+    public List<TeacherDTO> getNearbyCourseTeacherInfoByCourseId(Integer courseId) {
+        // 查询指定课程ID的所有教师关系
+        List<CourseTeacherRel> courseTeacherRels = courseTeacherRelMapper.selectCourseTeacherRelByCourseId(courseId);
+
+        // 提取并转换用户信息为TeacherDTO列表
+        return extractAndConvertNearbyCourseDTOTeachersInfo(userIdsFromRels(courseTeacherRels));
     }
 
     /**
@@ -91,13 +108,14 @@ public class CourseTeacherRelServiceImpl extends ServiceImpl<CourseTeacherRelMap
     }
 
     /**
-     * 从远程服务获取用户基本信息并转换为TeacherDTO列表
+     * 从远程服务获取用户基本信息并转换为指定类型的TeacherDTO列表
      *
-     * @param userIds 用户ID列表
-     * @param roleMap 用户ID到角色的映射
+     * @param userIds  用户ID列表
+     * @param dtoClass 目标TeacherDTO类的Class对象
+     * @param roleMap  可选参数，用于设置教师角色映射（如果dto需要该字段）
      * @return TeacherDTO列表
      */
-    private List<CourseDetailDTO.TeacherDTO> extractAndConvertTeachersInfo(List<Integer> userIds, Map<Integer, String> roleMap) {
+    private <T extends TeacherDTO> List<T> extractAndConvertTeachersInfo(List<Integer> userIds, Class<T> dtoClass, Map<Integer, String> roleMap) {
         // 从远程服务获取用户基本信息
         Object teacherUserInfoList = remoteUserInfoService.getBasicUserInfo(userIds).getData();
         List<Map<String, Object>> teachersListDataMap = (List<Map<String, Object>>) teacherUserInfoList;
@@ -107,13 +125,48 @@ public class CourseTeacherRelServiceImpl extends ServiceImpl<CourseTeacherRelMap
                 .map(teacherMap -> {
                     // 获取用户ID
                     Integer userId = (Integer) teacherMap.get("userId");
-                    // 将用户信息转换为DTO对象
-                    CourseDetailDTO.TeacherDTO teacherDTO = objectMapper.convertValue(teacherMap, CourseDetailDTO.TeacherDTO.class);
-                    // 设置教师角色
-                    teacherDTO.setTeacherRole(roleMap.getOrDefault(userId, ""));
+                    // 将用户信息转换为目标DTO对象
+                    T teacherDTO = objectMapper.convertValue(teacherMap, dtoClass);
+
+                    // 如果roleMap不为空且目标DTO类有TeacherRole属性，则设置教师角色
+                    try {
+                        if (roleMap != null && teacherDTO.getClass().getDeclaredField("teacherRole") != null) {
+                            try {
+                                Field teacherRoleField = teacherDTO.getClass().getDeclaredField("teacherRole");
+                                teacherRoleField.setAccessible(true);
+                                teacherRoleField.set(teacherDTO, roleMap.getOrDefault(userId, ""));
+                            } catch (NoSuchFieldException | IllegalAccessException e) {
+                                log.error("Failed to set teacher role due to ", e);
+                            }
+                        }
+                    } catch (NoSuchFieldException e) {
+                        throw new RuntimeException(e);
+                    }
+
                     return teacherDTO;
                 })
                 .collect(Collectors.toList());
+    }
+
+    /**
+     * 从远程服务获取课程详情DTO的教师信息并转换为指定类型的TeacherDTO列表
+     *
+     * @param userIds 用户ID列表
+     * @param roleMap 可选参数，用于设置教师角色映射（如果dto需要该字段）
+     * @return TeacherDTO列表
+     */
+    private List<CourseDetailDTO.TeacherDTO> extractAndConvertCourseDetailDTOTeachersInfo(List<Integer> userIds, Map<Integer, String> roleMap) {
+        return extractAndConvertTeachersInfo(userIds, CourseDetailDTO.TeacherDTO.class, roleMap);
+    }
+
+    /**
+     * 从远程服务获取附近课程DTO的教师信息并转换为指定类型的TeacherDTO列表
+     *
+     * @param userIds 用户ID列表
+     * @return TeacherDTO列表
+     */
+    private List<TeacherDTO> extractAndConvertNearbyCourseDTOTeachersInfo(List<Integer> userIds) {
+        return extractAndConvertTeachersInfo(userIds, TeacherDTO.class, null);
     }
 
 }

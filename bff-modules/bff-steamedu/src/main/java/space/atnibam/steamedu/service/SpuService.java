@@ -1,6 +1,9 @@
 package space.atnibam.steamedu.service;
 
 import space.atnibam.common.core.domain.R;
+import space.atnibam.steamedu.model.dto.NearbyCourseDTO;
+
+import java.util.List;
 
 /**
  * @InterfaceName: SpuService
@@ -16,4 +19,13 @@ public interface SpuService {
      * @return 课程信息
      */
     R getCourseDetailByCourseId(Integer courseId);
+
+    /**
+     * 根据位置获取用户附近的课程列表
+     *
+     * @param lat 纬度
+     * @param lng 经度
+     * @return 课程列表
+     */
+    List<NearbyCourseDTO> getNearbyCourseList(Double lat, Double lng);
 }

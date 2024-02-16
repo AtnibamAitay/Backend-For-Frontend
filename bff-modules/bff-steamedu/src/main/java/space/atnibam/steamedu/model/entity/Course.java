@@ -43,6 +43,10 @@ public class Course implements Serializable {
      */
     private BigDecimal latitude;
     /**
+     * 课程类型（0代表线上课，1代表线下课）
+     */
+    private Integer courseType;
+    /**
      * 课程开始时间
      */
     private LocalDateTime startTime;
@@ -57,7 +61,7 @@ public class Course implements Serializable {
     /**
      * 课程结束时间
      */
-    private Date endTime;
+    private LocalDateTime endTime;
     /**
      * 结课状态（0代表未结课、1代表已结课）
      */
