@@ -1,6 +1,7 @@
 package space.atnibam.steamedu.service;
 
 import space.atnibam.common.core.domain.R;
+import space.atnibam.steamedu.model.dto.AdaptiveCourseDTO;
 import space.atnibam.steamedu.model.dto.NearbyCourseDTO;
 
 import java.util.List;
@@ -28,4 +29,11 @@ public interface SpuService {
      * @return 课程列表
      */
     List<NearbyCourseDTO> getNearbyCourseList(Double lat, Double lng);
+
+    /**
+     * 获取自适应课程列表
+     *
+     * @return 自适应课程列表
+     */
+    List<AdaptiveCourseDTO> getAdaptiveCourseList();
 }

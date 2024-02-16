@@ -43,7 +43,7 @@ public class Course implements Serializable {
      */
     private BigDecimal latitude;
     /**
-     * 课程类型（0代表线上课，1代表线下课）
+     * 课程类型（0代表线上课，1代表线下课，2代表自适应课程）
      */
     private Integer courseType;
     /**

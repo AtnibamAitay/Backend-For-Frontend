@@ -1,6 +1,7 @@
 package space.atnibam.steamedu.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 import space.atnibam.steamedu.model.entity.Course;
 
@@ -29,6 +30,6 @@ public interface CourseMapper extends BaseMapper<Course> {
      */
     @Select("SELECT course_id, spu_id, longitude, latitude, course_type, start_time, end_time " +
             "FROM course " +
-            "WHERE status = 1 AND completion_status = 0")
-    List<Course> selectActiveCourses();
+            "WHERE status = 1 AND completion_status = 0 AND course_type = #{course_type}")
+    List<Course> selectActiveCourses(@Param("course_type") Integer course_type);
 }

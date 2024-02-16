@@ -25,6 +25,17 @@ public class SpuController {
     private SpuService spuService;
 
     /**
+     * 获取自适应课程列表
+     *
+     * @return 自适应课程列表
+     */
+    @ApiOperation(value = "获取自适应课程列表", notes = "获取自适应课程列表")
+    @GetMapping("")
+    public R getAdaptiveCourseList() {
+        return R.ok(spuService.getAdaptiveCourseList());
+    }
+
+    /**
      * 根据位置获取用户附近的课程列表
      *
      * @param lat 纬度
