@@ -114,7 +114,7 @@ public class CourseDetailDTO implements Serializable {
     @Data
     @AllArgsConstructor
     @NoArgsConstructor
-    public static class TeacherDTO extends space.atnibam.steamedu.model.dto.TeacherDTO implements Serializable {
+    public static class TeacherDTO extends UserBaseInfoDTO implements Serializable {
         private static final long serialVersionUID = 1L;
         /**
          * 头像

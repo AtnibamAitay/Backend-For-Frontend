@@ -6,7 +6,7 @@ import org.springframework.stereotype.Service;
 import space.atnibam.api.ums.RemoteUserInfoService;
 import space.atnibam.steamedu.mapper.CourseTeacherRelMapper;
 import space.atnibam.steamedu.model.dto.CourseDetailDTO;
-import space.atnibam.steamedu.model.dto.TeacherDTO;
+import space.atnibam.steamedu.model.dto.UserBaseInfoDTO;
 import space.atnibam.steamedu.model.entity.CourseTeacherRel;
 import space.atnibam.steamedu.service.CourseTeacherRelService;
 
@@ -56,7 +56,7 @@ public class CourseTeacherRelServiceImpl extends ServiceImpl<CourseTeacherRelMap
      * @return 教师信息列表
      */
     @Override
-    public List<TeacherDTO> getNearbyCourseTeacherInfoByCourseId(Integer courseId) {
+    public List<UserBaseInfoDTO> getNearbyCourseTeacherInfoByCourseId(Integer courseId) {
         // 查询指定课程ID的所有教师关系
         List<CourseTeacherRel> courseTeacherRels = courseTeacherRelMapper.selectCourseTeacherRelByCourseId(courseId);
 
@@ -115,7 +115,7 @@ public class CourseTeacherRelServiceImpl extends ServiceImpl<CourseTeacherRelMap
      * @param roleMap  可选参数，用于设置教师角色映射（如果dto需要该字段）
      * @return TeacherDTO列表
      */
-    private <T extends TeacherDTO> List<T> extractAndConvertTeachersInfo(List<Integer> userIds, Class<T> dtoClass, Map<Integer, String> roleMap) {
+    private <T extends UserBaseInfoDTO> List<T> extractAndConvertTeachersInfo(List<Integer> userIds, Class<T> dtoClass, Map<Integer, String> roleMap) {
         // 从远程服务获取用户基本信息
         Object teacherUserInfoList = remoteUserInfoService.getBasicUserInfo(userIds).getData();
         List<Map<String, Object>> teachersListDataMap = (List<Map<String, Object>>) teacherUserInfoList;
@@ -165,8 +165,8 @@ public class CourseTeacherRelServiceImpl extends ServiceImpl<CourseTeacherRelMap
      * @param userIds 用户ID列表
      * @return TeacherDTO列表
      */
-    private List<TeacherDTO> extractAndConvertNearbyCourseDTOTeachersInfo(List<Integer> userIds) {
-        return extractAndConvertTeachersInfo(userIds, TeacherDTO.class, null);
+    private List<UserBaseInfoDTO> extractAndConvertNearbyCourseDTOTeachersInfo(List<Integer> userIds) {
+        return extractAndConvertTeachersInfo(userIds, UserBaseInfoDTO.class, null);
     }
 
 }

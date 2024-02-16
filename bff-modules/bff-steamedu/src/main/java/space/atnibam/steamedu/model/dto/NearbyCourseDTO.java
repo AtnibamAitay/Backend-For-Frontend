@@ -40,20 +40,5 @@ public class NearbyCourseDTO {
     /**
      * 教师列表
      */
-    private List<TeacherDTO> teacher;
-
-    /*@Data
-    @AllArgsConstructor
-    @NoArgsConstructor
-    public static class TeacherDTO implements Serializable {
-        private static final long serialVersionUID = 1L;
-        *//**
-     * 头像
-     *//*
-        private String userAvatar;
-        *//**
-     * 教师名
-     *//*
-        private String userName;
-    }*/
+    private List<UserBaseInfoDTO> teacher;
 }

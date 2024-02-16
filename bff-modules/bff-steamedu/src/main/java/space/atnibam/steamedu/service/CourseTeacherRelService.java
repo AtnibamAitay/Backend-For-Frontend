@@ -2,7 +2,7 @@ package space.atnibam.steamedu.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
 import space.atnibam.steamedu.model.dto.CourseDetailDTO;
-import space.atnibam.steamedu.model.dto.TeacherDTO;
+import space.atnibam.steamedu.model.dto.UserBaseInfoDTO;
 import space.atnibam.steamedu.model.entity.CourseTeacherRel;
 
 import java.util.List;
@@ -28,5 +28,5 @@ public interface CourseTeacherRelService extends IService<CourseTeacherRel> {
      * @param courseId 课程ID
      * @return 教师信息列表
      */
-    List<TeacherDTO> getNearbyCourseTeacherInfoByCourseId(Integer courseId);
+    List<UserBaseInfoDTO> getNearbyCourseTeacherInfoByCourseId(Integer courseId);
 }
