@@ -70,6 +70,10 @@
             <groupId>space.atnibam</groupId>
             <artifactId>api-ums</artifactId>
         </dependency>
+        <dependency>
+            <groupId>space.atnibam</groupId>
+            <artifactId>api-sms</artifactId>
+        </dependency>
     </dependencies>
 
 </project>
