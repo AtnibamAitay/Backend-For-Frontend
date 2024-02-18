@@ -1,9 +1,11 @@
 package space.atnibam.steamedu.model.dto;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
 
 import java.math.BigDecimal;
-import java.util.List;
 
 /**
  * @ClassName: NearbyCourseDTO
@@ -11,20 +13,11 @@ import java.util.List;
  * @Author: AtnibamAitay
  * @CreateTime: 2024-02-16 18:38
  **/
+@EqualsAndHashCode(callSuper = true)
 @Data
-public class NearbyCourseDTO {
-    /**
-     * 课程id
-     */
-    private Integer courseId;
-    /**
-     * 课程类型
-     */
-    private Integer courseType;
-    /**
-     * 课程名
-     */
-    private String name;
+@AllArgsConstructor
+@NoArgsConstructor
+public class NearbyCourseDTO extends CourseBriefInfoDTO {
     /**
      * 价格
      */
@@ -33,12 +26,4 @@ public class NearbyCourseDTO {
      * 距离
      */
     private String distanceFromUser;
-    /**
-     * 上课时间
-     */
-    private String schoolTime;
-    /**
-     * 教师列表
-     */
-    private List<UserBaseInfoDTO> teacher;
 }
