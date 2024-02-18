@@ -16,6 +16,7 @@
         <module>api-auth</module>
         <module>api-cms</module>
         <module>api-pms</module>
+        <module>api-sms</module>
         <module>api-ums</module>
     </modules>
 
