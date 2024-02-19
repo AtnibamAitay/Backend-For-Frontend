@@ -220,6 +220,11 @@
             </dependency>
             <dependency>
                 <groupId>space.atnibam</groupId>
+                <artifactId>api-ims</artifactId>
+                <version>${BCP.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>space.atnibam</groupId>
                 <artifactId>api-pms</artifactId>
                 <version>${BCP.version}</version>
             </dependency>
