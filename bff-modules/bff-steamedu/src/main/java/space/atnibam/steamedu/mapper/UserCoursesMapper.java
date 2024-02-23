@@ -14,11 +14,12 @@ import java.util.List;
  */
 public interface UserCoursesMapper extends BaseMapper<UserCourses> {
     /**
-     * 根据用户id查出课程id列表
+     * 根据用户id和课程类型查出课程id列表
      *
-     * @param userId 用户id
+     * @param userId     用户id
+     * @param courseType 课程类型（0代表线上课，1代表线下课，2代表自适应课程）
      * @return 课程id列表
      */
-    @Select("select course_id from user_courses where user_id = #{userId}")
-    List<Integer> selectCourseIdListByUserId(Integer userId);
+    @Select("SELECT uc.course_id FROM user_courses uc INNER JOIN course c ON uc.course_id = c.course_id WHERE uc.user_id = #{userId} AND c.course_type = #{courseType}")
+    List<Integer> selectCourseIdListByUserIdAndCourseType(Integer userId, Integer courseType);
 }

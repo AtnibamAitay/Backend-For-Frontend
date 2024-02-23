@@ -14,8 +14,9 @@ public interface UserCoursesService extends IService<UserCourses> {
     /**
      * 根据用户id查出课程id列表
      *
-     * @param userId 用户id
+     * @param userId     用户id
+     * @param courseType 课程类型
      * @return 课程id列表
      */
-    List<Integer> getCourseIdListByUserId(Integer userId);
+    List<Integer> getCourseIdListByUserId(Integer userId, Integer courseType);
 }

@@ -36,7 +36,7 @@ public class CourseServiceImpl extends ServiceImpl<CourseMapper, Course>
      */
     @Override
     public List<AdaptiveCourseBaseInfoDTO> getUserAdaptiveCourseList(Integer userId) {
-        List<Integer> courseIdListByUserId = userCoursesService.getCourseIdListByUserId(userId);
+        List<Integer> courseIdListByUserId = userCoursesService.getCourseIdListByUserId(userId, 2);
         List<SpuBaseInfoDTO> spuDetailList = remoteSpuService.getSpuDetailList(courseIdListByUserId);
 
         // 使用 Java 8 Stream API 进行转换
