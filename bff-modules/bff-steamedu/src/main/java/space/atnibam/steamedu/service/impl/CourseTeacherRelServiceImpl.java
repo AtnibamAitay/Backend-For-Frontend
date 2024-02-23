@@ -9,6 +9,7 @@ import space.atnibam.steamedu.model.dto.CourseDetailDTO;
 import space.atnibam.steamedu.model.dto.UserBaseInfoDTO;
 import space.atnibam.steamedu.model.entity.CourseTeacherRel;
 import space.atnibam.steamedu.service.CourseTeacherRelService;
+import space.atnibam.steamedu.utils.CourseInfoUtils;
 
 import javax.annotation.Resource;
 import java.lang.reflect.Field;
@@ -30,6 +31,8 @@ public class CourseTeacherRelServiceImpl extends ServiceImpl<CourseTeacherRelMap
     private CourseTeacherRelMapper courseTeacherRelMapper;
     @Resource
     private RemoteUserInfoService remoteUserInfoService;
+    @Resource
+    private CourseInfoUtils courseInfoUtils;
 
     /**
      * 根据课程ID查询所有教师的信息（含职位）
@@ -46,7 +49,7 @@ public class CourseTeacherRelServiceImpl extends ServiceImpl<CourseTeacherRelMap
         Map<Integer, String> userIdToRoleMap = getTeacherRolesMapping(courseTeacherRels);
 
         // 提取并转换用户信息为TeacherDTO列表
-        return extractAndConvertCourseDetailDTOTeachersInfo(userIdsFromRels(courseTeacherRels), userIdToRoleMap);
+        return extractAndConvertCourseDetailDTOTeachersInfo(courseInfoUtils.extractFieldFromList(courseTeacherRels, CourseTeacherRel::getTeacherUserId), userIdToRoleMap);
     }
 
     /**
@@ -60,20 +63,11 @@ public class CourseTeacherRelServiceImpl extends ServiceImpl<CourseTeacherRelMap
         // 查询指定课程ID的所有教师关系
         List<CourseTeacherRel> courseTeacherRels = courseTeacherRelMapper.selectCourseTeacherRelByCourseId(courseId);
 
-        // 提取并转换用户信息为TeacherDTO列表
-        return extractAndConvertNearbyCourseDTOTeachersInfo(userIdsFromRels(courseTeacherRels));
-    }
+        // 提取教师ID列表
+        List<Integer> teacherUserIds = courseInfoUtils.extractFieldFromList(courseTeacherRels, CourseTeacherRel::getTeacherUserId);
 
-    /**
-     * 从课程教师关系中提取用户ID集合
-     *
-     * @param courseTeacherRels 课程教师关系列表
-     * @return 用户ID集合
-     */
-    private List<Integer> userIdsFromRels(List<CourseTeacherRel> courseTeacherRels) {
-        return courseTeacherRels.stream()
-                .map(CourseTeacherRel::getTeacherUserId)
-                .collect(Collectors.toList());
+        // 提取并转换用户信息为TeacherDTO列表
+        return extractAndConvertNearbyCourseDTOTeachersInfo(teacherUserIds);
     }
 
     /**

@@ -13,11 +13,10 @@ import space.atnibam.steamedu.model.dto.NearbyCourseDTO;
 import space.atnibam.steamedu.model.entity.Course;
 import space.atnibam.steamedu.service.CourseTeacherRelService;
 import space.atnibam.steamedu.service.SpuService;
+import space.atnibam.steamedu.utils.CourseInfoUtils;
 
 import javax.annotation.Resource;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -40,6 +39,8 @@ public class SpuServiceImpl implements SpuService {
     private RemoteCommentService remoteCommentService;
     @Resource
     private CourseTeacherRelService courseTeacherRelService;
+    @Resource
+    private CourseInfoUtils courseInfoUtils;
 
     /**
      * 根据课程ID获取商品信息
@@ -90,7 +91,7 @@ public class SpuServiceImpl implements SpuService {
             LocalDateTime courseStartTime = course.getStartTime();
             LocalDateTime courseEndTime = course.getEndTime();
             // 格式化课程时间
-            String formattedSchoolTime = formatCourseTime(courseStartTime, courseEndTime);
+            String formattedSchoolTime = courseInfoUtils.formatCourseTime(courseStartTime, courseEndTime);
 
             // TODO: 距离判断先搁置，等后面一起实现。
             nearbyCourseDTO.setDistanceFromUser("3.2km");
@@ -182,26 +183,5 @@ public class SpuServiceImpl implements SpuService {
         return adaptiveCourseDTOList;
     }
 
-    /**
-     * 格式化课程时间
-     *
-     * @param startTime 开始时间
-     * @param endTime   结束时间
-     * @return 格式化后的课程时间
-     */
-    private String formatCourseTime(LocalDateTime startTime, LocalDateTime endTime) {
-        LocalDate now = LocalDate.now();
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM.dd");
-
-        // 判断是否为同一年
-        if (startTime.toLocalDate().getYear() == now.getYear() && endTime.toLocalDate().getYear() == now.getYear()) {
-            // 格式化为"MM.dd"格式
-            return startTime.toLocalDate().format(formatter) + " - " + endTime.toLocalDate().format(formatter);
-        } else {
-            // 格式化为"yyyy.MM.dd"格式
-            formatter = DateTimeFormatter.ofPattern("yyyy.MM.dd");
-            return startTime.format(formatter) + " - " + endTime.format(formatter);
-        }
-    }
 
 }

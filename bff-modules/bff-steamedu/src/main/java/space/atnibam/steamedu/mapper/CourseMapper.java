@@ -32,4 +32,21 @@ public interface CourseMapper extends BaseMapper<Course> {
             "FROM course " +
             "WHERE status = 1 AND completion_status = 0 AND course_type = #{course_type}")
     List<Course> selectActiveCourses(@Param("course_type") Integer course_type);
+
+    /**
+     * 查询所有未结课且未被删除的课程的基础信息，支持根据多个课程类型查询
+     *
+     * @param courseIdList 课程ID列表
+     * @return List<Course> 课程信息集合
+     */
+    @Select("<script>" +
+            "SELECT course_id, spu_id, course_type, start_time, end_time, location, class_duration " +
+            "FROM course " +
+            "WHERE status = 1 AND completion_status = 0 AND course_type IN " +
+            "<foreach item='item' index='index' collection='courseIdList' open='(' separator=',' close=')'>" +
+            "#{item}" +
+            "</foreach>" +
+            "</script>")
+    List<Course> selectActiveCoursesBaseInfo(@Param("courseIdList") List<Integer> courseIdList);
+
 }

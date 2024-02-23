@@ -1,7 +1,9 @@
 package space.atnibam.steamedu.model.dto;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
 
 /**
  * @ClassName: UserCourseDTO
@@ -11,6 +13,8 @@ import lombok.EqualsAndHashCode;
  **/
 @EqualsAndHashCode(callSuper = true)
 @Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class UserCourseDTO extends CourseBriefInfoDTO {
     /**
      * 上课地点
