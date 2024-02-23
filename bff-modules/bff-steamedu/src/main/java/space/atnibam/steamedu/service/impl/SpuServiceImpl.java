@@ -106,7 +106,7 @@ public class SpuServiceImpl implements SpuService {
     }
 
     /**
-     * 获取活跃课程列表
+     * 获取自适应课程列表
      *
      * @return 活跃课程实体列表
      */
@@ -115,9 +115,9 @@ public class SpuServiceImpl implements SpuService {
     }
 
     /**
-     * 从远程服务获取并解析SPU详情
+     * 获取并解析SPU详情
      *
-     * @param spuId SPU ID
+     * @param spuId 商品ID
      * @return 解析后的SPU详情Map
      */
     private Map<String, Object> fetchAndParseSpuDetail(Integer spuId) {
