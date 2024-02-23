@@ -15,7 +15,7 @@ import javax.annotation.Resource;
  * @Author: AtnibamAitay
  * @CreateTime: 2024-02-01 00:26
  **/
-@Api(tags = "课程接口")
+@Api(tags = "课程（商品）模块")
 @RestController
 @RequestMapping("/api/spu")
 public class SpuController {
@@ -29,6 +29,7 @@ public class SpuController {
      *
      * @return 自适应课程列表
      */
+    // TODO:限制为10条
     @ApiOperation(value = "获取自适应课程列表", notes = "获取自适应课程列表")
     @GetMapping("")
     public R getAdaptiveCourseList() {
@@ -42,6 +43,7 @@ public class SpuController {
      * @param lng 经度
      * @return 课程列表
      */
+    // TODO:加入分页，一次只能获取10条数据
     @ApiOperation(value = "获取用户附近的课程列表", notes = "根据传入的经纬度获取用户附近的课程列表")
     @GetMapping("/nearby")
     public R getNearbyCourseList(@RequestParam Double lat, @RequestParam Double lng) {

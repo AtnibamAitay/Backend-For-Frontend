@@ -22,7 +22,7 @@ import java.io.IOException;
  * @Author: AtnibamAitay
  * @CreateTime: 2024-02-06 13:17
  **/
-@Api(tags = "认证接口")
+@Api(tags = "认证模块")
 @RestController
 @RequestMapping("/api/auth")
 public class AuthController {

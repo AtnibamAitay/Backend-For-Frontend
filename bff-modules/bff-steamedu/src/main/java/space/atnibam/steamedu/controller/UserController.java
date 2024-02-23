@@ -15,7 +15,7 @@ import javax.annotation.Resource;
  * @Author: AtnibamAitay
  * @CreateTime: 2024-02-06 20:08
  **/
-@Api(tags = "用户接口")
+@Api(tags = "用户模块")
 @RestController
 @RequestMapping("/api/user")
 public class UserController {
