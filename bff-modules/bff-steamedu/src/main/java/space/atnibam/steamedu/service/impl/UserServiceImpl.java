@@ -3,6 +3,7 @@ package space.atnibam.steamedu.service.impl;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.stereotype.Service;
 import space.atnibam.api.ums.RemoteUserInfoService;
+import space.atnibam.api.ums.model.UpdateUserNameDTO;
 import space.atnibam.steamedu.model.dto.ExtendedUserBaseInfoDTO;
 import space.atnibam.steamedu.service.UserService;
 
@@ -38,5 +39,15 @@ public class UserServiceImpl implements UserService {
 
         // 将Map对象转换为ExtendedUserBaseInfoDTO对象
         return objectMapper.convertValue(merchantDataMap, ExtendedUserBaseInfoDTO.class);
+    }
+
+    /**
+     * 设置用户的用户名
+     *
+     * @param updateUserNameDTO 包含账号ID、用户名的传输实体
+     */
+    @Override
+    public void setUserName(UpdateUserNameDTO updateUserNameDTO) {
+        remoteUserInfoService.updateUserName(updateUserNameDTO);
     }
 }

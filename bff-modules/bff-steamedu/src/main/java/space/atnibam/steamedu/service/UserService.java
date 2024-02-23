@@ -1,5 +1,6 @@
 package space.atnibam.steamedu.service;
 
+import space.atnibam.api.ums.model.UpdateUserNameDTO;
 import space.atnibam.steamedu.model.dto.ExtendedUserBaseInfoDTO;
 
 /**
@@ -16,4 +17,11 @@ public interface UserService {
      * @return 用户信息DTO
      */
     ExtendedUserBaseInfoDTO getUserInfo(String userId);
+
+    /**
+     * 设置用户的用户名
+     *
+     * @param updateUserNameDTO 包含账号ID、用户名的传输实体
+     */
+    void setUserName(UpdateUserNameDTO updateUserNameDTO);
 }
