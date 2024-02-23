@@ -3,7 +3,7 @@ package space.atnibam.steamedu.service.impl;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.stereotype.Service;
 import space.atnibam.api.ums.RemoteUserInfoService;
-import space.atnibam.api.ums.model.UpdateUserNameDTO;
+import space.atnibam.api.ums.model.dto.UpdateUserNameDTO;
 import space.atnibam.steamedu.model.dto.ExtendedUserBaseInfoDTO;
 import space.atnibam.steamedu.service.UserService;
 

@@ -1,6 +1,6 @@
 package space.atnibam.steamedu.service;
 
-import space.atnibam.api.ums.model.UpdateUserNameDTO;
+import space.atnibam.api.ums.model.dto.UpdateUserNameDTO;
 import space.atnibam.steamedu.model.dto.ExtendedUserBaseInfoDTO;
 
 /**

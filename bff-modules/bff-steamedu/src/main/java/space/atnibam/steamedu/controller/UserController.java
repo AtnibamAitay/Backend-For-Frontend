@@ -3,7 +3,7 @@ package space.atnibam.steamedu.controller;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.web.bind.annotation.*;
-import space.atnibam.api.ums.model.UpdateUserNameDTO;
+import space.atnibam.api.ums.model.dto.UpdateUserNameDTO;
 import space.atnibam.common.core.domain.R;
 import space.atnibam.steamedu.service.UserService;
 
