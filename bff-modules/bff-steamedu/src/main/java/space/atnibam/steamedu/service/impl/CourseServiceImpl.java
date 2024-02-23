@@ -2,13 +2,18 @@ package space.atnibam.steamedu.service.impl;
 
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.stereotype.Service;
+import space.atnibam.api.pms.RemoteSpuService;
+import space.atnibam.api.pms.dto.SpuBaseInfoDTO;
 import space.atnibam.steamedu.mapper.CourseMapper;
 import space.atnibam.steamedu.model.dto.AdaptiveCourseBaseInfoDTO;
 import space.atnibam.steamedu.model.dto.UserCourseDTO;
 import space.atnibam.steamedu.model.entity.Course;
 import space.atnibam.steamedu.service.CourseService;
+import space.atnibam.steamedu.service.UserCoursesService;
 
+import javax.annotation.Resource;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * @author Atnibam Aitay
@@ -18,6 +23,10 @@ import java.util.List;
 @Service
 public class CourseServiceImpl extends ServiceImpl<CourseMapper, Course>
         implements CourseService {
+    @Resource
+    private UserCoursesService userCoursesService;
+    @Resource
+    private RemoteSpuService remoteSpuService;
 
     /**
      * 获取用户自适应课程列表
@@ -27,8 +36,22 @@ public class CourseServiceImpl extends ServiceImpl<CourseMapper, Course>
      */
     @Override
     public List<AdaptiveCourseBaseInfoDTO> getUserAdaptiveCourseList(Integer userId) {
-        // TODO
-        return null;
+        List<Integer> courseIdListByUserId = userCoursesService.getCourseIdListByUserId(userId);
+        List<SpuBaseInfoDTO> spuDetailList = remoteSpuService.getSpuDetailList(courseIdListByUserId);
+
+        // 使用 Java 8 Stream API 进行转换
+        List<AdaptiveCourseBaseInfoDTO> adaptiveCourseList = spuDetailList.stream()
+                .filter(spu -> spu.getMerchant() != null)
+                .map(spu -> {
+                    AdaptiveCourseBaseInfoDTO adaptiveCourse = new AdaptiveCourseBaseInfoDTO();
+                    adaptiveCourse.setCourseId(spu.getSpuId());
+                    adaptiveCourse.setName(spu.getName());
+                    adaptiveCourse.setUserName(spu.getMerchant().getUserName());
+                    return adaptiveCourse;
+                })
+                .collect(Collectors.toList());
+
+        return adaptiveCourseList;
     }
 
     /**
