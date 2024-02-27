@@ -1,5 +1,7 @@
 app:
   id: 2
+  version: 1.0.1
+  update-url: https://xxx
 
 server:
   port: 6010
