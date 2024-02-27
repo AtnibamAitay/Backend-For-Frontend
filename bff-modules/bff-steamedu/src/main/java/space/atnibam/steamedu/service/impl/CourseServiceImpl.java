@@ -91,4 +91,14 @@ public class CourseServiceImpl extends ServiceImpl<CourseMapper, Course> impleme
         }
         return userCourseList;
     }
+
+    /**
+     * 根据SpuId获取课程
+     *
+     * @param spuId spuId
+     */
+    @Override
+    public Course getCourseBySpuId(Integer spuId) {
+        return courseMapper.selectCourseById(spuId);
+    }
 }

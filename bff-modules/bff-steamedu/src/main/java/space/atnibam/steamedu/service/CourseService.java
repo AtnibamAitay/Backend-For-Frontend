@@ -28,4 +28,11 @@ public interface CourseService extends IService<Course> {
      * @return 用户课程列表
      */
     List<UserCourseDTO> getUserCourseList(Integer userId);
+
+    /**
+     * 根据SpuId获取课程
+     *
+     * @param spuId spuId
+     */
+    Course getCourseBySpuId(Integer spuId);
 }

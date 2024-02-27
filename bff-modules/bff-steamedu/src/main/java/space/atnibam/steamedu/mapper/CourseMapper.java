@@ -49,4 +49,13 @@ public interface CourseMapper extends BaseMapper<Course> {
             "</script>")
     List<Course> selectActiveCoursesBaseInfo(@Param("courseIdList") List<Integer> courseIdList);
 
+
+    /**
+     * 根据SPUID查出课程信息
+     *
+     * @param spuId 商品ID
+     * @return Course 课程信息
+     */
+    @Select("SELECT * FROM course WHERE spu_id = #{spuId} AND status = 1")
+    Course selectCourseBySpuId(int spuId);
 }
