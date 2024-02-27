@@ -115,6 +115,7 @@ public class CourseTeacherRelServiceImpl extends ServiceImpl<CourseTeacherRelMap
         List<Map<String, Object>> teachersListDataMap = (List<Map<String, Object>>) teacherUserInfoList;
 
         // 将处理后的DTO对象放入列表中
+        // TODO:这里需要做非空判断，否则会出现空指针异常
         return teachersListDataMap.stream()
                 .map(teacherMap -> {
                     // 获取用户ID

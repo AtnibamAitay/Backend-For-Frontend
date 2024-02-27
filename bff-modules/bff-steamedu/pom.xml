@@ -78,6 +78,10 @@
             <groupId>space.atnibam</groupId>
             <artifactId>api-sms</artifactId>
         </dependency>
+        <dependency>
+            <groupId>space.atnibam</groupId>
+            <artifactId>api-oms</artifactId>
+        </dependency>
     </dependencies>
 
 </project>
