@@ -52,4 +52,6 @@ public class AuthController {
     public SaResult login(@Validated @RequestBody LoginDTO loginDTO) throws IOException {
         return authService.login(loginDTO.getAccountNumber(), loginDTO.getVerifyCode(), loginDTO.getLoginMethod());
     }
+
+    // TODO:退出登录
 }

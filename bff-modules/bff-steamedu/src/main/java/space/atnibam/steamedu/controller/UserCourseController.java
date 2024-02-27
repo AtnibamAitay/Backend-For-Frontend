@@ -48,4 +48,6 @@ public class UserCourseController {
         return R.ok(courseService.getUserCourseList(userId));
     }
 
+    // TODO:用户用户线下课、线上课课程详细页
+
 }
