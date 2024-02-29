@@ -82,6 +82,10 @@
             <groupId>space.atnibam</groupId>
             <artifactId>api-oms</artifactId>
         </dependency>
+        <dependency>
+            <groupId>space.atnibam</groupId>
+            <artifactId>common-security</artifactId>
+        </dependency>
     </dependencies>
 
 </project>
