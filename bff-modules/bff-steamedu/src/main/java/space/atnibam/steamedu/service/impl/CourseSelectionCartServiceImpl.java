@@ -60,4 +60,6 @@ public class CourseSelectionCartServiceImpl implements CourseSelectionCartServic
         }
         return courseBriefInfoDTOList;
     }
+
+    // TODO:根据一个或多个课程id删除掉指定用户的选课单中的课程
 }
