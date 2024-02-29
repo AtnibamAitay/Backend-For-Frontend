@@ -13,10 +13,9 @@ public interface UserService {
     /**
      * 获取用户信息
      *
-     * @param userId 用户ID
      * @return 用户信息DTO
      */
-    ExtendedUserBaseInfoDTO getUserInfo(String userId);
+    ExtendedUserBaseInfoDTO getUserInfo();
 
     /**
      * 设置用户的用户名

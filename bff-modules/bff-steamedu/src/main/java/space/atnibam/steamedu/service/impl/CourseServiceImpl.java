@@ -1,8 +1,10 @@
 package space.atnibam.steamedu.service.impl;
 
+import cn.dev33.satoken.stp.StpUtil;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
+import space.atnibam.api.auth.dto.SessionUserInfoDTO;
 import space.atnibam.api.pms.RemoteSpuService;
 import space.atnibam.api.pms.dto.SpuBaseInfoDTO;
 import space.atnibam.steamedu.mapper.CourseMapper;
@@ -19,6 +21,8 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
+
+import static space.atnibam.api.auth.constants.AuthConstants.USER_INFO;
 
 /**
  * @author Atnibam Aitay
@@ -41,12 +45,12 @@ public class CourseServiceImpl extends ServiceImpl<CourseMapper, Course> impleme
     /**
      * 获取用户自适应课程列表
      *
-     * @param userId 用户ID
      * @return 用户的自适应课程列表
      */
     @Override
-    public List<AdaptiveCourseBaseInfoDTO> getUserAdaptiveCourseList(Integer userId) {
-        List<Integer> courseIdListByUserId = userCoursesService.getCourseIdListByUserId(userId, 2);
+    public List<AdaptiveCourseBaseInfoDTO> getUserAdaptiveCourseList() {
+        SessionUserInfoDTO sessionUserInfoDTO = (SessionUserInfoDTO) StpUtil.getSession().get(USER_INFO);
+        List<Integer> courseIdListByUserId = userCoursesService.getCourseIdListByUserId(sessionUserInfoDTO.getUserId(), 2);
         List<SpuBaseInfoDTO> spuDetailList = remoteSpuService.getSpuDetailList(courseIdListByUserId);
 
         // 使用 Java 8 Stream API 进行转换
@@ -64,12 +68,12 @@ public class CourseServiceImpl extends ServiceImpl<CourseMapper, Course> impleme
     /**
      * 获取用户课程列表
      *
-     * @param userId 用户ID
      * @return 用户课程列表
      */
     @Override
-    public List<UserCourseDTO> getUserCourseList(Integer userId) {
-        List<Integer> courseIdListByUserId = userCoursesService.getCourseIdListByUserId(userId, 1);
+    public List<UserCourseDTO> getUserCourseList() {
+        SessionUserInfoDTO sessionUserInfoDTO = (SessionUserInfoDTO) StpUtil.getSession().get(USER_INFO);
+        List<Integer> courseIdListByUserId = userCoursesService.getCourseIdListByUserId(sessionUserInfoDTO.getUserId(), 1);
 
         List<Course> courses = courseMapper.selectActiveCoursesBaseInfo(courseIdListByUserId);
         List<Integer> spuIds = courseInfoUtils.extractFieldFromList(courses, Course::getSpuId);

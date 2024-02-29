@@ -19,8 +19,7 @@ public interface FriendService {
     /**
      * 根据用户ID获取好友列表
      *
-     * @param ownId 用户ID
      * @return 好友列表
      */
-    R getFriendList(int ownId);
+    R getFriendList();
 }

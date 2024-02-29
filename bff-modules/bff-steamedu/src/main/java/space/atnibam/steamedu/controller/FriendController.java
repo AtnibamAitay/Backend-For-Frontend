@@ -3,7 +3,6 @@ package space.atnibam.steamedu.controller;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import space.atnibam.common.core.domain.R;
@@ -38,12 +37,11 @@ public class FriendController {
     /**
      * 根据用户ID获取好友列表
      *
-     * @param ownId 用户ID
      * @return 好友列表
      */
     @ApiOperation("获取好友列表")
-    @GetMapping("/list/{ownId}")
-    public R getFriendList(@PathVariable("ownId") Integer ownId) {
-        return friendService.getFriendList(ownId);
+    @GetMapping("/list")
+    public R getFriendList() {
+        return friendService.getFriendList();
     }
 }

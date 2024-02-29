@@ -25,13 +25,12 @@ public class UserController {
     /**
      * 获取用户信息
      *
-     * @param userId 用户ID
      * @return 用户信息
      */
     @ApiOperation("获取用户头像、用户名、用户所在区")
-    @GetMapping("/{userId}/info")
-    public R getUserInfo(@PathVariable("userId") String userId) {
-        return R.ok(userService.getUserInfo(userId));
+    @GetMapping("/info")
+    public R getUserInfo() {
+        return R.ok(userService.getUserInfo());
     }
 
     /**

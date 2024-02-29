@@ -1,7 +1,9 @@
 package space.atnibam.steamedu.service.impl;
 
+import cn.dev33.satoken.stp.StpUtil;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.stereotype.Service;
+import space.atnibam.api.auth.dto.SessionUserInfoDTO;
 import space.atnibam.api.ums.RemoteUserInfoService;
 import space.atnibam.api.ums.model.dto.UpdateUserNameDTO;
 import space.atnibam.steamedu.model.dto.ExtendedUserBaseInfoDTO;
@@ -9,6 +11,8 @@ import space.atnibam.steamedu.service.UserService;
 
 import javax.annotation.Resource;
 import java.util.Map;
+
+import static space.atnibam.api.auth.constants.AuthConstants.USER_INFO;
 
 /**
  * @ClassName: UserServiceImpl
@@ -26,13 +30,13 @@ public class UserServiceImpl implements UserService {
     /**
      * 获取用户信息
      *
-     * @param userId 用户ID
      * @return 用户信息DTO
      */
     @Override
-    public ExtendedUserBaseInfoDTO getUserInfo(String userId) {
+    public ExtendedUserBaseInfoDTO getUserInfo() {
+        SessionUserInfoDTO sessionUserInfoDTO = (SessionUserInfoDTO) StpUtil.getSession().get(USER_INFO);
         // 调用远程用户信息服务获取用户信息
-        Object userInfo = remoteUserInfoService.getUserInfo(userId).getData();
+        Object userInfo = remoteUserInfoService.getUserInfo(String.valueOf(sessionUserInfoDTO.getUserId())).getData();
 
         // 将用户信息转换为Map对象
         Map<String, Object> merchantDataMap = (Map<String, Object>) userInfo;

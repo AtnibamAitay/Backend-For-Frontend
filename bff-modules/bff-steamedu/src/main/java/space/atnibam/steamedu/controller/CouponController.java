@@ -26,12 +26,11 @@ public class CouponController {
     /**
      * 获取用户未失效的优惠券列表
      *
-     * @param userId 用户ID
      * @return R 优惠券列表
      */
     @ApiOperation("获取用户未失效的优惠券列表")
     @GetMapping("/user")
-    public R getUserUnexpiredCoupons(int userId) {
-        return R.ok(couponService.getUserUnexpiredCoupons(userId));
+    public R getUserUnexpiredCoupons() {
+        return R.ok(couponService.getUserUnexpiredCoupons());
     }
 }

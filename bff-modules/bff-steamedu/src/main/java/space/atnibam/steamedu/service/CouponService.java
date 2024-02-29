@@ -14,8 +14,7 @@ public interface CouponService {
     /**
      * 获取用户未使用且未过期的优惠券
      *
-     * @param userId 用户ID
      * @return 用户未使用且未过期的优惠券列表
      */
-    List<UserCouponDetailDTO> getUserUnexpiredCoupons(int userId);
+    List<UserCouponDetailDTO> getUserUnexpiredCoupons();
 }

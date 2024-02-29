@@ -26,12 +26,11 @@ public class CourseSelectionCartController {
     /**
      * 获取用户的选课单列表
      *
-     * @param userId 用户id
      * @return 购物车列表
      */
     @ApiOperation("获取用户的选课单列表")
     @GetMapping("")
-    public R getShoppingCartByUserId(Integer userId) {
-        return R.ok(courseSelectionCartService.getCourseSelectionCartByUserId(userId));
+    public R getShoppingCartByUserId() {
+        return R.ok(courseSelectionCartService.getCourseSelectionCartByUserId());
     }
 }

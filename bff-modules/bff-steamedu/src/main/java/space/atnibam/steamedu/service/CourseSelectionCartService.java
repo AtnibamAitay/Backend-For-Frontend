@@ -14,8 +14,7 @@ public interface CourseSelectionCartService {
     /**
      * 获取用户的选课单列表
      *
-     * @param userId 用户ID
      * @return 选课单列表
      */
-    List<CourseBriefInfoDTO> getCourseSelectionCartByUserId(Integer userId);
+    List<CourseBriefInfoDTO> getCourseSelectionCartByUserId();
 }

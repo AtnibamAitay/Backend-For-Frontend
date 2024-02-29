@@ -16,18 +16,16 @@ public interface CourseService extends IService<Course> {
     /**
      * 获取用户自适应课程列表
      *
-     * @param userId 用户ID
      * @return 用户的自适应课程列表
      */
-    List<AdaptiveCourseBaseInfoDTO> getUserAdaptiveCourseList(Integer userId);
+    List<AdaptiveCourseBaseInfoDTO> getUserAdaptiveCourseList();
 
     /**
      * 获取用户课程列表
      *
-     * @param userId 用户ID
      * @return 用户课程列表
      */
-    List<UserCourseDTO> getUserCourseList(Integer userId);
+    List<UserCourseDTO> getUserCourseList();
 
     /**
      * 根据SpuId获取课程

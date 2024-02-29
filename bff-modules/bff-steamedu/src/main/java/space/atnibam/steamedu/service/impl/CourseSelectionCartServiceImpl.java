@@ -1,8 +1,10 @@
 package space.atnibam.steamedu.service.impl;
 
+import cn.dev33.satoken.stp.StpUtil;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
+import space.atnibam.api.auth.dto.SessionUserInfoDTO;
 import space.atnibam.api.oms.RemoteCartService;
 import space.atnibam.api.oms.model.dto.ShoppingCartDTO;
 import space.atnibam.steamedu.model.dto.CourseBriefInfoDTO;
@@ -16,6 +18,8 @@ import javax.annotation.Resource;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+
+import static space.atnibam.api.auth.constants.AuthConstants.USER_INFO;
 
 /**
  * @ClassName: CourseSelectionCartServiceImpl
@@ -40,13 +44,13 @@ public class CourseSelectionCartServiceImpl implements CourseSelectionCartServic
     /**
      * 获取用户的选课单列表
      *
-     * @param userId 用户ID
      * @return 选课单列表
      */
     @Override
-    public List<CourseBriefInfoDTO> getCourseSelectionCartByUserId(Integer userId) {
+    public List<CourseBriefInfoDTO> getCourseSelectionCartByUserId() {
+        SessionUserInfoDTO sessionUserInfoDTO = (SessionUserInfoDTO) StpUtil.getSession().get(USER_INFO);
         List<CourseBriefInfoDTO> courseBriefInfoDTOList = new ArrayList<>();
-        List<ShoppingCartDTO> shoppingCartDTOList = remoteCartService.getShoppingCartByUserId(userId, appId);
+        List<ShoppingCartDTO> shoppingCartDTOList = remoteCartService.getShoppingCartByUserId(sessionUserInfoDTO.getUserId(), appId);
         for (ShoppingCartDTO shoppingCartDTO : shoppingCartDTOList) {
             CourseBriefInfoDTO courseBriefInfoDTO = new CourseBriefInfoDTO();
             Course course = courseService.getCourseBySpuId(shoppingCartDTO.getSpuId());

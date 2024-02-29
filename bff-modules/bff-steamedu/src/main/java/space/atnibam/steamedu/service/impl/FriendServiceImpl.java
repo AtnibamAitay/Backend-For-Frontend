@@ -36,11 +36,11 @@ public class FriendServiceImpl implements FriendService {
     /**
      * 根据用户ID获取好友列表
      *
-     * @param ownId 用户ID
      * @return 好友列表
      */
     @Override
-    public R getFriendList(int ownId) {
-        return remoteFriendService.getFriendList(ownId);
+    public R getFriendList() {
+        SessionUserInfoDTO sessionUserInfoDTO = (SessionUserInfoDTO) StpUtil.getSession().get(USER_INFO);
+        return remoteFriendService.getFriendList(sessionUserInfoDTO.getUserId());
     }
 }

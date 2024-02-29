@@ -1,8 +1,10 @@
 package space.atnibam.steamedu.service.impl;
 
+import cn.dev33.satoken.stp.StpUtil;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
+import space.atnibam.api.auth.dto.SessionUserInfoDTO;
 import space.atnibam.api.sms.RemoteCouponService;
 import space.atnibam.steamedu.model.dto.UserCouponDetailDTO;
 import space.atnibam.steamedu.service.CouponService;
@@ -11,6 +13,8 @@ import javax.annotation.Resource;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+
+import static space.atnibam.api.auth.constants.AuthConstants.USER_INFO;
 
 /**
  * @ClassName: CouponServiceImpl
@@ -30,13 +34,13 @@ public class CouponServiceImpl implements CouponService {
     /**
      * 获取用户未使用且未过期的优惠券
      *
-     * @param userId 用户ID
      * @return 用户未使用且未过期的优惠券列表
      */
     @Override
-    public List<UserCouponDetailDTO> getUserUnexpiredCoupons(int userId) {
+    public List<UserCouponDetailDTO> getUserUnexpiredCoupons() {
+        SessionUserInfoDTO sessionUserInfoDTO = (SessionUserInfoDTO) StpUtil.getSession().get(USER_INFO);
         // 调用远程服务获取用户未使用且未过期的优惠券
-        Object coupons = remoteCouponService.getUserUnexpiredCoupons(appId, userId).getData();
+        Object coupons = remoteCouponService.getUserUnexpiredCoupons(appId, sessionUserInfoDTO.getUserId()).getData();
         // 将优惠券列表转换为Map列表
         List<Map<String, Object>> couponListMap = (List<Map<String, Object>>) coupons;
 
