@@ -1,6 +1,5 @@
 package space.atnibam.steamedu.controller;
 
-import cn.dev33.satoken.util.SaResult;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.validation.annotation.Validated;
@@ -49,8 +48,8 @@ public class AuthController {
      */
     @ApiOperation("登陆")
     @PostMapping("/login")
-    public SaResult login(@Validated @RequestBody LoginDTO loginDTO) throws IOException {
-        return authService.login(loginDTO.getAccountNumber(), loginDTO.getVerifyCode(), loginDTO.getLoginMethod());
+    public R login(@Validated @RequestBody LoginDTO loginDTO) throws IOException {
+        return R.ok(authService.login(loginDTO.getAccountNumber(), loginDTO.getVerifyCode(), loginDTO.getLoginMethod()));
     }
 
     // TODO:退出登录

@@ -1,6 +1,6 @@
 package space.atnibam.steamedu.service;
 
-import cn.dev33.satoken.util.SaResult;
+import space.atnibam.api.auth.dto.LoginDTO;
 import space.atnibam.common.core.domain.R;
 
 import java.io.IOException;
@@ -30,5 +30,5 @@ public interface AuthService {
      * @param loginMethod   登录方式 1-手机号+验证码 2-邮箱+验证码
      * @return 登录结果
      */
-    SaResult login(String accountNumber, String verifyCode, Integer loginMethod) throws IOException;
+    LoginDTO login(String accountNumber, String verifyCode, Integer loginMethod) throws IOException;
 }

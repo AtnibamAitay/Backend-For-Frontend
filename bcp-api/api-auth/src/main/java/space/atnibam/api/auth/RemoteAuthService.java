@@ -1,12 +1,12 @@
 package space.atnibam.api.auth;
 
-import cn.dev33.satoken.util.SaResult;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import space.atnibam.api.auth.dto.AccountVerificationDTO;
+import space.atnibam.api.auth.dto.LoginDTO;
 import space.atnibam.api.auth.dto.LoginRequestDTO;
 import space.atnibam.common.core.domain.R;
 
@@ -38,5 +38,5 @@ public interface RemoteAuthService {
      */
     @ApiOperation("单点登陆")
     @PostMapping("/api/auth/login")
-    SaResult ssoLogin(@Validated @RequestBody LoginRequestDTO loginRequestDTO) throws IOException;
+    LoginDTO ssoLogin(@Validated @RequestBody LoginRequestDTO loginRequestDTO) throws IOException;
 }
