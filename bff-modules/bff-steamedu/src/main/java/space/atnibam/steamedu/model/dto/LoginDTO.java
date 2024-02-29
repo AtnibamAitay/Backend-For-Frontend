@@ -8,7 +8,7 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
 /**
- * @ClassName: LoginDTO
+ * @ClassName: LoginRequestDTO
  * @Description: 登录注册请求类
  * @Author: AtnibamAitay
  * @CreateTime: 2024-02-06 17:27

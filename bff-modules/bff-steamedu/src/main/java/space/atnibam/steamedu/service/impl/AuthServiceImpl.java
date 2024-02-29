@@ -4,7 +4,7 @@ import cn.dev33.satoken.util.SaResult;
 import org.springframework.stereotype.Service;
 import space.atnibam.api.auth.RemoteAuthService;
 import space.atnibam.api.auth.dto.AccountVerificationDTO;
-import space.atnibam.api.auth.dto.LoginDTO;
+import space.atnibam.api.auth.dto.LoginRequestDTO;
 import space.atnibam.common.core.domain.R;
 import space.atnibam.steamedu.config.ProjectConfig;
 import space.atnibam.steamedu.service.AuthService;
@@ -90,12 +90,12 @@ public class AuthServiceImpl implements AuthService {
      */
     @Override
     public SaResult login(String accountNumber, String verifyCode, Integer loginMethod) throws IOException {
-        LoginDTO loginDTO = LoginDTO.builder()
+        LoginRequestDTO loginRequestDTO = LoginRequestDTO.builder()
                 .accountNumber(accountNumber)
                 .verifyCode(verifyCode)
                 .loginMethod(loginMethod)
                 .appId(projectConfig.getAppId())
                 .build();
-        return remoteAuthService.ssoLogin(loginDTO);
+        return remoteAuthService.ssoLogin(loginRequestDTO);
     }
 }
