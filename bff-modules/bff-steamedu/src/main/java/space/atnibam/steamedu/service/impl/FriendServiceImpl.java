@@ -1,11 +1,15 @@
 package space.atnibam.steamedu.service.impl;
 
+import cn.dev33.satoken.stp.StpUtil;
 import org.springframework.stereotype.Service;
-import space.atnibam.api.ims.RemoteFriendService;
+import space.atnibam.api.auth.dto.SessionUserInfoDTO;
+import space.atnibam.api.ums.RemoteFriendService;
 import space.atnibam.common.core.domain.R;
 import space.atnibam.steamedu.service.FriendService;
 
 import javax.annotation.Resource;
+
+import static space.atnibam.api.auth.constants.AuthConstants.USER_INFO;
 
 /**
  * @ClassName: FriendServiceImpl
@@ -21,12 +25,12 @@ public class FriendServiceImpl implements FriendService {
     /**
      * 根据用户id获取收到的好友请求列表
      *
-     * @param userId 用户id
      * @return 响应结果
      */
     @Override
-    public R getReceivedFriendRequests(int userId) {
-        return remoteFriendService.getReceivedFriendRequests(userId);
+    public R getReceivedFriendRequests() {
+        SessionUserInfoDTO sessionUserInfoDTO = (SessionUserInfoDTO) StpUtil.getSession().get(USER_INFO);
+        return remoteFriendService.getReceivedFriendRequests(sessionUserInfoDTO.getUserId());
     }
 
     /**

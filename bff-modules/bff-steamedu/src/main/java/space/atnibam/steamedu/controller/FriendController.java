@@ -27,13 +27,12 @@ public class FriendController {
     /**
      * 根据用户id获取收到的好友请求列表
      *
-     * @param userId 用户id
      * @return 响应结果
      */
     @ApiOperation("获取收到的好友请求列表")
-    @GetMapping("/received/{userId}")
-    public R getReceivedFriendRequests(@PathVariable("userId") Integer userId) {
-        return friendService.getReceivedFriendRequests(userId);
+    @GetMapping("/received")
+    public R getReceivedFriendRequests() {
+        return friendService.getReceivedFriendRequests();
     }
 
     /**
