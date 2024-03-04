@@ -20,8 +20,9 @@ import java.math.BigDecimal;
 public class NearbyCourseDTO extends CourseBriefInfoDTO {
     /**
      * 价格
+     * TODO:暂时设定一个固定值用于前端测试使用，后面有规格了再删掉
      */
-    private BigDecimal price;
+    private BigDecimal price = BigDecimal.valueOf(100);
     /**
      * 距离
      */

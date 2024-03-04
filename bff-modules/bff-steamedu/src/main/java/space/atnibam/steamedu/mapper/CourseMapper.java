@@ -42,7 +42,7 @@ public interface CourseMapper extends BaseMapper<Course> {
     @Select("<script>" +
             "SELECT course_id, spu_id, course_type, start_time, end_time, location, class_duration " +
             "FROM course " +
-            "WHERE status = 1 AND completion_status = 0 AND course_type IN " +
+            "WHERE status = 1 AND completion_status = 0 AND spu_id IN " +
             "<foreach item='item' index='index' collection='courseIdList' open='(' separator=',' close=')'>" +
             "#{item}" +
             "</foreach>" +

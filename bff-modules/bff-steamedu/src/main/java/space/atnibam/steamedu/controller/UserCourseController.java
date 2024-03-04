@@ -40,7 +40,7 @@ public class UserCourseController {
      * @return 用户线下课课程列表
      */
     @ApiOperation(value = "获取用户线下课、线上课课程列表", notes = "获取用户线下课课程列表")
-    @GetMapping("/")
+    @GetMapping("")
     public R getUserCourseList() {
         return R.ok(courseService.getUserCourseList());
     }
