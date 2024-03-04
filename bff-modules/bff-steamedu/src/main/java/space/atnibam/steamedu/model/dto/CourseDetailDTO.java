@@ -32,16 +32,22 @@ public class CourseDetailDTO implements Serializable {
     private List<String> cover;
     /**
      * 价格
+     * <p>
+     * TODO: 为了方便前端测试而临时设置了一个固定的测试值
      */
-    private BigDecimal price;
+    private BigDecimal price = BigDecimal.valueOf(100);
     /**
      * 库存（剩余名额）
+     * <p>
+     * TODO: 为了方便前端测试而临时设置了一个固定的测试值
      */
-    private Integer stock;
+    private Integer stock = 100;
     /**
      * 课程总名额
+     * <p>
+     * TODO: 为了方便前端测试而临时设置了一个固定的测试值
      */
-    private Integer totalStock;
+    private Integer totalStock = 365;
     /**
      * 课程开始时间
      */
@@ -53,8 +59,10 @@ public class CourseDetailDTO implements Serializable {
     private String name;
     /**
      * 综合评分
+     * <p>
+     * TODO: 为了方便前端测试而临时设置了一个固定的测试值
      */
-    private Double totalComprehensiveScore;
+    private Double totalComprehensiveScore = 5.0;
     /**
      * 累计销量
      */
