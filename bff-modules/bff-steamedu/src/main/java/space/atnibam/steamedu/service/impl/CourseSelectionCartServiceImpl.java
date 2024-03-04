@@ -7,7 +7,7 @@ import org.springframework.stereotype.Service;
 import space.atnibam.api.auth.dto.SessionUserInfoDTO;
 import space.atnibam.api.oms.RemoteCartService;
 import space.atnibam.api.oms.model.dto.ShoppingCartDTO;
-import space.atnibam.steamedu.model.dto.CourseBriefInfoDTO;
+import space.atnibam.steamedu.model.dto.NearbyCourseDTO;
 import space.atnibam.steamedu.model.entity.Course;
 import space.atnibam.steamedu.service.CourseSelectionCartService;
 import space.atnibam.steamedu.service.CourseService;
@@ -47,12 +47,12 @@ public class CourseSelectionCartServiceImpl implements CourseSelectionCartServic
      * @return 选课单列表
      */
     @Override
-    public List<CourseBriefInfoDTO> getCourseSelectionCartByUserId() {
+    public List<NearbyCourseDTO> getCourseSelectionCartByUserId() {
         SessionUserInfoDTO sessionUserInfoDTO = (SessionUserInfoDTO) StpUtil.getSession().get(USER_INFO);
-        List<CourseBriefInfoDTO> courseBriefInfoDTOList = new ArrayList<>();
+        List<NearbyCourseDTO> courseBriefInfoDTOList = new ArrayList<>();
         List<ShoppingCartDTO> shoppingCartDTOList = remoteCartService.getShoppingCartByUserId(sessionUserInfoDTO.getUserId(), appId);
         for (ShoppingCartDTO shoppingCartDTO : shoppingCartDTOList) {
-            CourseBriefInfoDTO courseBriefInfoDTO = new CourseBriefInfoDTO();
+            NearbyCourseDTO courseBriefInfoDTO = new NearbyCourseDTO();
             Course course = courseService.getCourseBySpuId(shoppingCartDTO.getSpuId());
             BeanUtils.copyProperties(course, courseBriefInfoDTO);
             LocalDateTime courseStartTime = course.getStartTime();
@@ -60,6 +60,8 @@ public class CourseSelectionCartServiceImpl implements CourseSelectionCartServic
             courseBriefInfoDTO.setName(shoppingCartDTO.getName());
             courseBriefInfoDTO.setSchoolTime(courseInfoUtils.formatCourseTime(courseStartTime, courseEndTime));
             courseBriefInfoDTO.setTeacher(courseTeacherRelService.getNearbyCourseTeacherInfoByCourseId(course.getCourseId()));
+            // TODO: 这是为了方便前端测试而临时设置的一个固定值，在后续开发完距离计算部分后，这部分将需要被修改
+            courseBriefInfoDTO.setDistanceFromUser("3.2km");
             courseBriefInfoDTOList.add(courseBriefInfoDTO);
         }
         return courseBriefInfoDTOList;

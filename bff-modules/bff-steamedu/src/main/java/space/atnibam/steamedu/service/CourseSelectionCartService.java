@@ -1,6 +1,6 @@
 package space.atnibam.steamedu.service;
 
-import space.atnibam.steamedu.model.dto.CourseBriefInfoDTO;
+import space.atnibam.steamedu.model.dto.NearbyCourseDTO;
 
 import java.util.List;
 
@@ -16,5 +16,5 @@ public interface CourseSelectionCartService {
      *
      * @return 选课单列表
      */
-    List<CourseBriefInfoDTO> getCourseSelectionCartByUserId();
+    List<NearbyCourseDTO> getCourseSelectionCartByUserId();
 }
