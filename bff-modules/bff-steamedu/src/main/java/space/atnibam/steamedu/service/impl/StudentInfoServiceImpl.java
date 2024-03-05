@@ -2,9 +2,12 @@ package space.atnibam.steamedu.service.impl;
 
 import cn.dev33.satoken.stp.StpUtil;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 import space.atnibam.api.auth.dto.SessionUserInfoDTO;
+import space.atnibam.steamedu.enums.GenderEnum;
 import space.atnibam.steamedu.mapper.StudentInfoMapper;
+import space.atnibam.steamedu.model.dto.StudentInfoDTO;
 import space.atnibam.steamedu.model.entity.StudentInfo;
 import space.atnibam.steamedu.service.StudentInfoService;
 
@@ -29,10 +32,21 @@ public class StudentInfoServiceImpl extends ServiceImpl<StudentInfoMapper, Stude
      * @return 当前用户的学生信息
      */
     @Override
-    public StudentInfo getStudentInfosByCurrentUser() {
+    public StudentInfoDTO getStudentInfosByCurrentUser() {
+        StudentInfoDTO studentInfoDTO = new StudentInfoDTO();
         SessionUserInfoDTO sessionUserInfoDTO = (SessionUserInfoDTO) StpUtil.getSession().get(USER_INFO);
         Integer userId = sessionUserInfoDTO.getUserId();
-        return studentInfoMapper.selectStudentInfosByUserId(userId);
+
+        // 查询学生信息
+        StudentInfo studentInfo = studentInfoMapper.selectStudentInfosByUserId(userId);
+
+        // 将gender字段转换为文字描述
+        if (studentInfo != null) {
+            BeanUtils.copyProperties(studentInfo, studentInfoDTO);
+            studentInfoDTO.setGender(GenderEnum.getByCode(studentInfo.getGender()).getDesc());
+        }
+
+        return studentInfoDTO;
     }
 }
 

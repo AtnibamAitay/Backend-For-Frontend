@@ -1,6 +1,7 @@
 package space.atnibam.steamedu.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
+import space.atnibam.steamedu.model.dto.StudentInfoDTO;
 import space.atnibam.steamedu.model.entity.StudentInfo;
 
 /**
@@ -15,5 +16,5 @@ public interface StudentInfoService extends IService<StudentInfo> {
      *
      * @return 当前用户的学生信息
      */
-    StudentInfo getStudentInfosByCurrentUser();
+    StudentInfoDTO getStudentInfosByCurrentUser();
 }
