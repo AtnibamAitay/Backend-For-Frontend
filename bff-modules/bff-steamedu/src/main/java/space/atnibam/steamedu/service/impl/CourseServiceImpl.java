@@ -9,6 +9,7 @@ import space.atnibam.api.pms.RemoteSpuService;
 import space.atnibam.api.pms.dto.SpuBaseInfoDTO;
 import space.atnibam.steamedu.mapper.CourseMapper;
 import space.atnibam.steamedu.model.dto.AdaptiveCourseBaseInfoDTO;
+import space.atnibam.steamedu.model.dto.OrderInfoDTO;
 import space.atnibam.steamedu.model.dto.UserCourseDTO;
 import space.atnibam.steamedu.model.entity.Course;
 import space.atnibam.steamedu.service.CourseService;
@@ -104,5 +105,33 @@ public class CourseServiceImpl extends ServiceImpl<CourseMapper, Course> impleme
     @Override
     public Course getCourseBySpuId(Integer spuId) {
         return courseMapper.selectCourseById(spuId);
+    }
+
+    /**
+     * 根据课程ID列表获取订单课程信息
+     *
+     * @param courseIds 课程ID列表
+     * @return 订单课程信息列表
+     */
+    @Override
+    public List<OrderInfoDTO.OrderCourseInfoDTO> getOrderCourseInfo(List<Integer> courseIds) {
+        List<Course> courseList = courseMapper.selectActiveCoursesBaseInfo(courseIds);
+        List<OrderInfoDTO.OrderCourseInfoDTO> orderCourseInfoDTOList = new ArrayList<>();
+        List<Integer> spuIds = courseInfoUtils.extractFieldFromList(courseList, Course::getSpuId);
+        List<SpuBaseInfoDTO> spuDetailList = remoteSpuService.getSpuDetailList(spuIds);
+        for (Course course : courseList) {
+            OrderInfoDTO.OrderCourseInfoDTO orderCourseInfoDTO = new OrderInfoDTO.OrderCourseInfoDTO();
+            BeanUtils.copyProperties(course, orderCourseInfoDTO);
+            for (SpuBaseInfoDTO spu : spuDetailList) {
+                if (course.getSpuId().equals(spu.getSpuId())) {
+                    orderCourseInfoDTO.setName(spu.getName());
+                }
+            }
+            LocalDateTime courseStartTime = course.getStartTime();
+            LocalDateTime courseEndTime = course.getEndTime();
+            orderCourseInfoDTO.setSchoolTime(courseInfoUtils.formatCourseTime(courseStartTime, courseEndTime));
+            orderCourseInfoDTOList.add(orderCourseInfoDTO);
+        }
+        return orderCourseInfoDTOList;
     }
 }

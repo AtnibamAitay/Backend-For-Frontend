@@ -2,6 +2,7 @@ package space.atnibam.steamedu.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
 import space.atnibam.steamedu.model.dto.AdaptiveCourseBaseInfoDTO;
+import space.atnibam.steamedu.model.dto.OrderInfoDTO;
 import space.atnibam.steamedu.model.dto.UserCourseDTO;
 import space.atnibam.steamedu.model.entity.Course;
 
@@ -33,4 +34,12 @@ public interface CourseService extends IService<Course> {
      * @param spuId spuId
      */
     Course getCourseBySpuId(Integer spuId);
+
+    /**
+     * 根据课程ID列表获取订单课程信息
+     *
+     * @param courseIds 课程ID列表
+     * @return 订单课程信息列表
+     */
+    List<OrderInfoDTO.OrderCourseInfoDTO> getOrderCourseInfo(List<Integer> courseIds);
 }
