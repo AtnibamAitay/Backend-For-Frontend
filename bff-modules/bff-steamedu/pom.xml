@@ -39,6 +39,10 @@
             <artifactId>spring-cloud-starter-loadbalancer</artifactId>
         </dependency>
         <dependency>
+            <groupId>cn.dev33</groupId>
+            <artifactId>sa-token-sso</artifactId>
+        </dependency>
+        <dependency>
             <groupId>space.atnibam</groupId>
             <artifactId>common-datasource</artifactId>
         </dependency>

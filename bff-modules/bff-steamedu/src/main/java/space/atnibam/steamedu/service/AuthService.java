@@ -31,4 +31,11 @@ public interface AuthService {
      * @return 登录结果
      */
     LoginDTO login(String accountNumber, String verifyCode, Integer loginMethod) throws IOException;
+
+    /**
+     * 退出登录
+     *
+     * @return 退出登录结果
+     */
+    Object logout();
 }

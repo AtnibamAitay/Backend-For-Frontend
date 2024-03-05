@@ -52,5 +52,14 @@ public class AuthController {
         return R.ok(authService.login(loginDTO.getAccountNumber(), loginDTO.getVerifyCode(), loginDTO.getLoginMethod()));
     }
 
-    // TODO:退出登录
+    /**
+     * 退出登录
+     *
+     * @return 退出登录结果
+     */
+    @ApiOperation("退出登录")
+    @PostMapping("/logout")
+    public Object logout() {
+        return authService.logout();
+    }
 }

@@ -1,5 +1,6 @@
 package space.atnibam.steamedu.service.impl;
 
+import cn.dev33.satoken.sso.SaSsoProcessor;
 import org.springframework.stereotype.Service;
 import space.atnibam.api.auth.RemoteAuthService;
 import space.atnibam.api.auth.dto.AccountVerificationDTO;
@@ -97,5 +98,15 @@ public class AuthServiceImpl implements AuthService {
                 .appId(projectConfig.getAppId())
                 .build();
         return remoteAuthService.ssoLogin(loginRequestDTO);
+    }
+
+    /**
+     * 退出登录
+     *
+     * @return 退出登录结果
+     */
+    @Override
+    public Object logout() {
+        return SaSsoProcessor.instance.ssoSignout();
     }
 }
