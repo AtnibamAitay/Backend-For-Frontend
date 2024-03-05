@@ -10,4 +10,10 @@ import space.atnibam.steamedu.model.entity.StudentInfo;
  */
 public interface StudentInfoService extends IService<StudentInfo> {
 
+    /**
+     * 获取当前用户的学生信息
+     *
+     * @return 当前用户的学生信息
+     */
+    StudentInfo getStudentInfosByCurrentUser();
 }
