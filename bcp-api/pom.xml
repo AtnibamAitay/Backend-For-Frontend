@@ -13,6 +13,7 @@
     <packaging>pom</packaging>
 
     <modules>
+        <module>api-ai</module>
         <module>api-auth</module>
         <module>api-cms</module>
         <module>api-ims</module>

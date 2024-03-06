@@ -50,6 +50,11 @@
             <groupId>space.atnibam</groupId>
             <artifactId>common-swagger</artifactId>
         </dependency>
+
+        <dependency>
+            <groupId>space.atnibam</groupId>
+            <artifactId>api-ai</artifactId>
+        </dependency>
         <dependency>
             <groupId>space.atnibam</groupId>
             <artifactId>api-auth</artifactId>
