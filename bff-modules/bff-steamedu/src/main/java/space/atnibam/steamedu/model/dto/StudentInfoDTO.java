@@ -1,5 +1,6 @@
 package space.atnibam.steamedu.model.dto;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
 
 import java.io.Serializable;
@@ -33,6 +34,7 @@ public class StudentInfoDTO implements Serializable {
     /**
      * 生日
      */
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm", timezone = "GMT+8")
     private Date birthday;
     /**
      * 联系方式
